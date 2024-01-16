@@ -1,23 +1,23 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose'
 
-const BrugerSchema = new mongoose.Schema({
-    email: { type: String, required: true },
-    username: { type: String, required: true },
-    authentication: {
-        password: { type: String, required: true, select: false },
-        salt: { type: String, select: false },
-        sessionToken: { type: String, select: false },
-    }
+// User Config
+const UserSchema = new mongoose.Schema({
+  email: { type: String, required: true },
+  username: { type: String, required: true },
+  authentication: {
+    password: { type: String, required: true, select: false },
+    salt: { type: String, select: false },
+    sessionToken: { type: String, select: false },
+  },
 })
 
-export const BrugerModel = mongoose.model('Bruger', BrugerSchema)
+export const UserModel = mongoose.model('User', UserSchema)
 
-export const getUsers = () => BrugerModel.find()
-export const getBrugerByEmail = (email: string) => BrugerModel.findOne({ email })
-export const getBrugerBySessionToken = (sessionToken: string) => BrugerModel.findOne({
-    'authentication.sessionToken': sessionToken,
-})
-export const getBrugerById = (id: string) => BrugerModel.findById(id)
-export const createBruger = (values: Record<string, any>) => new BrugerModel(values).save().then((bruger) => bruger.toObject())
-export const deleteBrugerById = (id: string) => BrugerModel.findOneAndDelete({ _id: id })
-export const updateBrugerById = (id: string, values: Record<string, any>) => BrugerModel.findByIdAndUpdate(id, values)
+// User Actions
+export const getUsers = () => UserModel.find()
+export const getUserByEmail = (email: string) => UserModel.findOne({ email })
+export const getUserBySessionToken = (sessionToken: string) => UserModel.findOne({ 'authentication.sessionToken': sessionToken })
+export const getUserById = (id: string) => UserModel.findById(id)
+export const createUser = (values: Record<string, any>) => new UserModel(values).save().then((user) => user.toObject())
+export const deleteUserById = (id: string) => UserModel.findOneAndDelete({ _id: id })
+export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate(id, values)
