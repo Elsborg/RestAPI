@@ -2,7 +2,7 @@ import crypto from 'crypto'
 
 const SECRET = 'MARTIN-REST-API'
 
-export const authentication = (salt: string, password: string): string => {
+export const authentication = (salt: string, password: string) => {
   return crypto.createHmac('sha256', [salt, password].join('/')).update(SECRET).digest('hex')
 }
 
